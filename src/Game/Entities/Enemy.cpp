@@ -37,75 +37,76 @@ Enemy::Enemy(string id, int health, int baseDamage, string entityName, int ox, i
 }
 
 void Enemy::tickOverworld()
-{
-    if (moveTimer == 60)
-    {
-        walking = true;
-        switch (direction)
+{   if (!pauseState){
+        if (moveTimer == 60)
         {
-        case Direction::left:
-            direction = Direction::down;
-            break;
-        case Direction::right:
-            direction = Direction::up;
-            break;
-        case Direction::up:
-            direction = Direction::left;
-            break;
-        case Direction::down:
-            direction = Direction::right;
-            break;
+            walking = true;
+            switch (direction)
+            {
+            case Direction::left:
+                direction = Direction::down;
+                break;
+            case Direction::right:
+                direction = Direction::up;
+                break;
+            case Direction::up:
+                direction = Direction::left;
+                break;
+            case Direction::down:
+                direction = Direction::right;
+                break;
+            }
         }
-    }
-    if (moveTimer == 45)
-    {
-        walking = false;
-    }
-    moveTimer--;
-    if (moveTimer == 0) moveTimer = 60;
+        if (moveTimer == 45)
+        {
+            walking = false;
+        }
+        moveTimer--;
+        if (moveTimer == 0) moveTimer = 60;
 
-    if (walking)
-    {
-        switch (direction)
+        if (walking)
         {
-        case Direction::left:
-            this->ox -= speed;
-            walkLeft->tick();
-            overworldSprite = walkLeft->getCurrentFrame();
-            break;
-        case Direction::right:
-            this->ox += speed;
-            walkRight->tick();
-            overworldSprite = walkRight->getCurrentFrame();
-            break;
-        case Direction::up:
-            this->oy -= speed;
-            walkUp->tick();
-            overworldSprite = walkUp->getCurrentFrame();
-            break;
-        case Direction::down:
-            this->oy += speed;
-            walkDown->tick();
-            overworldSprite = walkDown->getCurrentFrame();
-            break;
+            switch (direction)
+            {
+            case Direction::left:
+                this->ox -= speed;
+                walkLeft->tick();
+                overworldSprite = walkLeft->getCurrentFrame();
+                break;
+            case Direction::right:
+                this->ox += speed;
+                walkRight->tick();
+                overworldSprite = walkRight->getCurrentFrame();
+                break;
+            case Direction::up:
+                this->oy -= speed;
+                walkUp->tick();
+                overworldSprite = walkUp->getCurrentFrame();
+                break;
+            case Direction::down:
+                this->oy += speed;
+                walkDown->tick();
+                overworldSprite = walkDown->getCurrentFrame();
+                break;
+            }
         }
-    }
-    else
-    {
-        switch (direction)
+        else
         {
-        case Direction::left:
-            overworldSprite.load("images/entities/" + entityName + "/leftframes/" + entityName + "-ow-left1.png");
-            break;
-        case Direction::right:
-            overworldSprite.load("images/entities/" + entityName + "/rightframes/" + entityName + "-ow-right1.png");
-            break;
-        case Direction::up:
-            overworldSprite.load("images/entities/" + entityName + "/upframes/" + entityName + "-ow-up1.png");
-            break;
-        case Direction::down:
-            overworldSprite.load("images/entities/" + entityName + "/downframes/" + entityName + "-ow-down1.png");
-            break;
+            switch (direction)
+            {
+            case Direction::left:
+                overworldSprite.load("images/entities/" + entityName + "/leftframes/" + entityName + "-ow-left1.png");
+                break;
+            case Direction::right:
+                overworldSprite.load("images/entities/" + entityName + "/rightframes/" + entityName + "-ow-right1.png");
+                break;
+            case Direction::up:
+                overworldSprite.load("images/entities/" + entityName + "/upframes/" + entityName + "-ow-up1.png");
+                break;
+            case Direction::down:
+                overworldSprite.load("images/entities/" + entityName + "/downframes/" + entityName + "-ow-down1.png");
+                break;
+            }
         }
     }
 }

@@ -46,9 +46,10 @@ void BattleState::tick()
             return;
         }
     }
-
-    player->tickFighting();
-    enemy->tickFighting();
+    if (!pauseState){
+        player->tickFighting();
+        enemy->tickFighting();
+    }
 
     if (choice != Move::none && canInteract)
     {
@@ -226,7 +227,20 @@ void BattleState::renderOutcome()
 }
 
 void BattleState::keyPressed(int key)
-{
+{   if (key == 'p'){
+        if (!pauseState){
+            canInteract = false;
+            music.setVolume(0);
+            pauseState = true;
+            
+        }
+        else{
+            canInteract = true;
+            music.setVolume(0.25);
+            pauseState = false;    
+        }
+
+    }
     if (canInteract)
     {
         if (key == OF_KEY_LEFT || key == 'a')
@@ -269,7 +283,10 @@ void BattleState::keyPressed(int key)
                 break;
             }
         }
+        
     }
+    
+    
 }
 
 void BattleState::keyReleased(int key)

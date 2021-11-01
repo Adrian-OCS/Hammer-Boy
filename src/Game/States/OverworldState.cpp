@@ -21,22 +21,23 @@ void OverworldState::loadArea(Area *area)
 }
 
 void OverworldState::tick()
-{
-    player->tickOverworld();
-    for (unsigned int i = 0; i < area->getEnemies().size(); i++)
-    {
-        if (!area->getEnemies().at(i)->isDead())
+{   if (!pauseState){
+        player->tickOverworld();
+        for (unsigned int i = 0; i < area->getEnemies().size(); i++)
         {
-            area->getEnemies().at(i)->tickOverworld();
-            if (player->collides(area->getEnemies().at(i)))
+            if (!area->getEnemies().at(i)->isDead())
             {
-                setEnemy(area->getEnemies().at(i));
-                setNextState("Battle");
-                setFinished(true);
+                area->getEnemies().at(i)->tickOverworld();
+                if (player->collides(area->getEnemies().at(i)))
+                {
+                    setEnemy(area->getEnemies().at(i));
+                    setNextState("Battle");
+                    setFinished(true);
+                }
             }
         }
     }
-    camera->tick();
+        camera->tick();
 }
 
 void OverworldState::render()
@@ -60,6 +61,17 @@ void OverworldState::render()
 void OverworldState::keyPressed(int key)
 {
     player->keyPressed(key);
+    if (key == 'p'){
+        if (!pauseState){
+            music.setVolume(0);
+            pauseState = true;
+            
+        }
+        else{
+            music.setVolume(0.25);
+            pauseState = !pauseState;    
+        }
+    }
 }
 
 void OverworldState::keyReleased(int key)

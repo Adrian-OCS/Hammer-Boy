@@ -31,4 +31,5 @@ class Entity {
         void setHealth(int health) { this->health = health; };
         int getDmg() { return baseDamage; };
         void setDmg(int baseDamage) { this->baseDamage = baseDamage; };
+        bool pauseState;
 };

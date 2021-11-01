@@ -14,6 +14,7 @@ Entity::Entity(int ox, int oy, int ow, int oh, int fx, int fy, int fw, int fh, i
 
     fightingSprite.load(fightingPath);
     overworldSprite.load(overworldPath);
+    pauseState = false;
 }
 
 void Entity::renderOverworld() {
