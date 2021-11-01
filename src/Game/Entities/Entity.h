@@ -30,8 +30,8 @@ class Entity {
         void setOY(int oy) { this-> oy = oy; };
         int getMaxHealth() { return maxHealth; };
         void setMaxHealth(int maxHealth) { this->maxHealth = maxHealth; };
-        int getCurrentPlayerHealth() { return currentHealth;};
-        void setCurrentPlayerHealth(int currentHealth) { this->currentHealth = currentHealth; };
+        int getCurrentHealth() { return currentHealth;};
+        void setCurrentHealth(int currentHealth) { this->currentHealth = currentHealth; };
         int getDmg() { return baseDamage; };
         void setDmg(int baseDamage) { this->baseDamage = baseDamage; };
         bool pauseState;

@@ -34,7 +34,7 @@ Player::Player(int maxHealth, int baseDamage) : Entity(INIT_X, INIT_Y, 64, 64, 6
     fighting = new Animation(7, fightingFrames);
     pressedKeys = {};
 
-    currentHealth = 100;
+    this->currentHealth = this->getMaxHealth();
 }
 
 void Player::tickOverworld()
@@ -73,6 +73,9 @@ void Player::tickOverworld()
             walkDown->tick();
             overworldSprite = walkDown->getCurrentFrame();
             break;
+        case 'h':
+            this->currentHealth = this->getMaxHealth();
+            break;
         }
     }
     else
@@ -110,19 +113,18 @@ void Player::renderOverworld()
 }
 
 void Player::keyPressed(int key)
-{   //if(!pauseState){
-        if (key == 'w' || key == 'a' || key == 's' || key == 'd')
+{ 
+        if (key == 'w' || key == 'a' || key == 's' || key == 'd' || key == 'h')
         {
             if(find(pressedKeys.begin(), pressedKeys.end(), key) == pressedKeys.end()){
                 pressedKeys.push_back(key);
             }
         }
-    //}
 }
 
 void Player::keyReleased(int key)
 {
-    if (key == 'w' || key == 'a' || key == 's' || key == 'd')
+    if (key == 'w' || key == 'a' || key == 's' || key == 'd' || key == 'h')
     {
         vector<char>::iterator pos = find(pressedKeys.begin(), pressedKeys.end(), key);
         if(pos != pressedKeys.end()){
