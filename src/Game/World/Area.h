@@ -13,9 +13,10 @@ class Area
         ofPoint entrancePosition;
         std::vector<Enemy*> enemies;
         Area *nextArea;
+        string areaName;
 
     public:
-        Area(Area *nextArea, string areaImagePath, string areaMusicPath, string areaStagePath, ofPoint entrancePosition, vector<Enemy*> enemies);
+        Area(Area *nextArea, string areaImagePath, string areaMusicPath, string areaStagePath, ofPoint entrancePosition, vector<Enemy*> enemies, string areaName);
         void resetEnemies();
         ofImage getImage() { return areaImage;};
         ofSoundPlayer getMusic() { return areaMusic;};
@@ -25,5 +26,5 @@ class Area
         vector<Enemy*> getEnemies() { return enemies;};
         int getRemainingEnemies();
         Area* getNextArea() { return nextArea;};
-        
+        string getAreaName() { return areaName;};        
 };

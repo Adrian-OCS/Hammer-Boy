@@ -43,6 +43,7 @@ void OverworldState::render()
 {
     overworldImage.drawSubsection(0, 0, camera->getDimensionX(), camera->getDimensionY(), camera->getLeftCornerX(), camera->getTopCornerY());
     player->renderOverworld();
+    ofDrawBitmapString(area->getAreaName() + "\n" + "Health: " + to_string(player->getCurrentPlayerHealth()) + "\n" + "Remaining enemies: " + to_string(area->getRemainingEnemies()), 15, 25);
 
     for (unsigned int i = 0; i < area->getEnemies().size(); i++)
     {

@@ -25,7 +25,7 @@ class Player : public Entity {
         vector<char> pressedKeys;
     
     public:
-        Player(int health, int baseDamage);
+        Player(int maxHealth, int baseDamage);
         ~Player();
         void tickOverworld();
         void tickFighting();

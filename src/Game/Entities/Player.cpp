@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(int health, int baseDamage) : Entity(INIT_X, INIT_Y, 64, 64, 64, 164, 192, 192, health, baseDamage, "images/entities/player/downframes/player-ow-front1.png", "images/entities/player/fightingframes/player-f1.png")
+Player::Player(int maxHealth, int baseDamage) : Entity(INIT_X, INIT_Y, 64, 64, 64, 164, 192, 192, maxHealth, baseDamage, "images/entities/player/downframes/player-ow-front1.png", "images/entities/player/fightingframes/player-f1.png")
 {
 
     vector<ofImage> downFrames = {};
@@ -33,6 +33,8 @@ Player::Player(int health, int baseDamage) : Entity(INIT_X, INIT_Y, 64, 64, 64, 
     walkRight = new Animation(5, rightFrames);
     fighting = new Animation(7, fightingFrames);
     pressedKeys = {};
+
+    currentHealth = 100;
 }
 
 void Player::tickOverworld()

@@ -14,7 +14,7 @@ BattleState::BattleState(Player *player, Area *area)
     currentButton = 1;
     resultTimer = 0;
     canInteract = true;
-    currentPlayerHealth = player->getHealth();
+    currentPlayerHealth = player->getMaxHealth();
     button1.load("images/ui/buttons/rock.png");
     button2.load("images/ui/buttons/paper.png");
     button3.load("images/ui/buttons/scissors.png");
@@ -26,7 +26,7 @@ BattleState::BattleState(Player *player, Area *area)
 void BattleState::startBattle(Enemy *enemy)
 {
     this->enemy = enemy;
-    currentEnemyHealth = enemy->getHealth();
+    currentEnemyHealth = enemy->getMaxHealth();
 }
 
 void BattleState::tick()
@@ -43,6 +43,7 @@ void BattleState::tick()
         {
             setNextState("Win");
             setFinished(true);
+            player->setCurrentPlayerHealth(currentPlayerHealth);
             return;
         }
     }
@@ -116,8 +117,8 @@ void BattleState::renderHealthBar()
 
     for (int i = 0; i < 3; i++)
     {
-        double playerHealthRatio = (double)currentPlayerHealth / (double)player->getHealth();
-        double enemyHealthRatio = (double)currentEnemyHealth / (double)enemy->getHealth();
+        double playerHealthRatio = (double)currentPlayerHealth / (double)player->getMaxHealth();
+        double enemyHealthRatio = (double)currentEnemyHealth / (double)enemy->getMaxHealth();
         if(playerHealthRatio < 0){
             playerHealthRatio = 0;
         }
@@ -288,5 +289,6 @@ void BattleState::reset()
 
 void BattleState::resetPlayer()
 {
-    currentPlayerHealth = player->getHealth();
+   currentPlayerHealth = 100;
+   player->setCurrentPlayerHealth(currentPlayerHealth);
 }

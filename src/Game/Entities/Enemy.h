@@ -23,7 +23,7 @@ class Enemy : public Entity {
 
     
     public:
-        Enemy(string id, int health, int baseDamage, string entityName, int ox, int oy);
+        Enemy(string id, int maxHealth, int baseDamage, string entityName, int ox, int oy);
         ~Enemy();
         int getOX() { return ox; };
         int getOY() { return oy; };

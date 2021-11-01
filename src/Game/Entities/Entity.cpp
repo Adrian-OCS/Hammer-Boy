@@ -1,6 +1,6 @@
 #include "Entity.h"
 
-Entity::Entity(int ox, int oy, int ow, int oh, int fx, int fy, int fw, int fh, int health, int baseDamage, string fightingPath, string overworldPath) {
+Entity::Entity(int ox, int oy, int ow, int oh, int fx, int fy, int fw, int fh, int maxHealth, int baseDamage, string fightingPath, string overworldPath) {
     this->ox = ox;
     this->oy = oy;
     this->oh = oh;
@@ -9,7 +9,7 @@ Entity::Entity(int ox, int oy, int ow, int oh, int fx, int fy, int fw, int fh, i
     this->fy = fy;
     this->fh = fh;
     this->fw = fw;
-    this->health = health;
+    this->maxHealth = maxHealth;
     this->baseDamage = baseDamage;
 
     fightingSprite.load(fightingPath);
