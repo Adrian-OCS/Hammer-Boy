@@ -62,18 +62,21 @@ void OverworldState::render()
 void OverworldState::keyPressed(int key)
 {
     player->keyPressed(key);
-    if (key == 'p'){
-        if (!pauseState){
+    if (!pauseState){
+        if (key == 'p'){
             music.setVolume(0);
             pauseState = true;
             
         }
+        if (key == 'r'){
+            area->resetEnemies();
+        }
+    }
         else{
             music.setVolume(0.25);
             pauseState = !pauseState;    
         }
-    }
-}
+ }
 
 void OverworldState::keyReleased(int key)
 {
