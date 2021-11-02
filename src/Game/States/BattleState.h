@@ -23,7 +23,6 @@ class BattleState : public State {
         ofImage result2;
         ofImage result3;
         int currentButton;
-        int currentPlayerHealth;
         int currentEnemyHealth;
         int resultTimer;
         bool canInteract;
