@@ -35,9 +35,6 @@
         "stdexcept": "cpp",
         "system_error": "cpp",
         "typeinfo": "cpp",
-        "variant": "cpp",
-        "memory": "cpp",
-        "functional": "cpp",
-        "tuple": "cpp"
+        "variant": "cpp"
     },
 }
