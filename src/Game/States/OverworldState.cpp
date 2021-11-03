@@ -66,6 +66,10 @@ void OverworldState::keyPressed(int key)
 void OverworldState::keyReleased(int key)
 {
     player->keyReleased(key);
+
+    if (key == 'r'){
+        area->resetEnemies();
+    }
 }
 
 void OverworldState::mousePressed(int x, int y, int button)
