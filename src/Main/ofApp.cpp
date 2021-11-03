@@ -13,6 +13,10 @@ void ofApp::setup()
 	battleState = new BattleState(player, currentArea);
 	winState = new WinState();
 	endGameState = new EndGameState();
+	//loadingState = new LoadingState();
+	paused = new PauseState();
+	
+
 
 	// Initial State
 	currentState = titleState;
@@ -56,7 +60,11 @@ void ofApp::update()
 {
 	if (currentState != nullptr)
 	{
-		currentState->tick();
+		
+		if(!paused->getPause()){
+			currentState->tick();
+		}
+
 		if (currentState->hasFinished())
 		{
 			currentState->toggleMusic();

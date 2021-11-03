@@ -110,14 +110,14 @@ void Player::renderOverworld()
 }
 
 void Player::keyPressed(int key)
-{   //if(!pauseState){
+{
         if (key == 'w' || key == 'a' || key == 's' || key == 'd')
         {
             if(find(pressedKeys.begin(), pressedKeys.end(), key) == pressedKeys.end()){
                 pressedKeys.push_back(key);
             }
         }
-    //}
+    
 }
 
 void Player::keyReleased(int key)
