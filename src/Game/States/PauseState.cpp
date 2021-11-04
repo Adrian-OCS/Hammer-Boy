@@ -2,7 +2,8 @@
 
 
  PauseState::PauseState(){
-     pausedImage.load("images/ui/otherpause.png");
+    music.load("audio/ui/beep.wav");
+    music.setVolume(0);
 
 
  }
@@ -23,16 +24,16 @@
 
 
  void PauseState::render(){
-     if(paused){
-        pausedImage.draw(ofGetWidth()/2-10, 10);
-     }
+
 }
 
 
 void PauseState::keyPressed(int key){
     if (key == 'p'){
-        paused = !paused;
-    }
+            setNextState(getLastStateName());
+            setFinished(true);
+        }
+    
 }
 
 

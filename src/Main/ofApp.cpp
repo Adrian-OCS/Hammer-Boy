@@ -13,7 +13,7 @@ void ofApp::setup()
 	battleState = new BattleState(player, currentArea);
 	winState = new WinState();
 	endGameState = new EndGameState();
-	//loadingState = new LoadingState();
+	loading = new LoadingState();
 	paused = new PauseState();
 	
 
@@ -61,9 +61,9 @@ void ofApp::update()
 	if (currentState != nullptr)
 	{
 		
-		if(!paused->getPause()){
-			currentState->tick();
-		}
+		
+		currentState->tick();
+		loading->tick();
 
 		if (currentState->hasFinished())
 		{
@@ -81,12 +81,18 @@ void ofApp::update()
 			}
 			else if (currentState->getNextState() == "Overworld")
 			{
+				paused->setLastState("Overworld");
+				lastState = overworldState;
 				currentState = overworldState;
+				loading->startLoading(currentState);
 			}
 			else if (currentState->getNextState() == "Battle")
 			{
+				paused->setLastState("Battle");
+				lastState = battleState;
 				battleState->startBattle(overworldState->getEnemy());
 				currentState = battleState;
+				loading->startLoading(currentState);
 			}
 			else if (currentState->getNextState() == "Win")
 			{
@@ -104,6 +110,7 @@ void ofApp::update()
 						overworldState->loadArea(currentArea);
 						battleState->setStage(currentArea->getStage());
 						currentState = winState;
+						loading->startLoading(currentState);
 					}
 				}
 				else
@@ -111,10 +118,17 @@ void ofApp::update()
 					currentState = winState;
 				}
 			}
+			else if (currentState->getNextState() == "PauseState")
+			{
+				currentState = paused;
+			}
 			else if (currentState->getNextState() == "End")
 				currentState = endGameState;
-			currentState->toggleMusic();
+			if(loading->getLoading() == false){
+				currentState->toggleMusic();
+			}
 			currentState->reset();
+
 		}
 	}
 }
@@ -122,9 +136,15 @@ void ofApp::update()
 //--------------------------------------------------------------
 void ofApp::draw()
 {
+	if(currentState == paused){
+		lastState->render();
+	}
 	if (currentState != nullptr)
 	{
-		currentState->render();
+		if(loading->getLoading() == false){
+			currentState->render();
+		}
+		loading->render();
 	}
 }
 

@@ -5,7 +5,8 @@
 class PauseState: public State{
     private:
         ofImage pausedImage;
-        bool paused = false;
+        string lastState;
+        
     public:
         PauseState();
         void reset();
@@ -13,7 +14,8 @@ class PauseState: public State{
         void render();
         void keyPressed(int key);
         void mousePressed(int x, int y, int button);
-        bool getPause(){return paused; };
+        string getLastStateName(){return lastState;}
+        void setLastState(string lastState) { this->lastState = lastState;}
 
 
    
