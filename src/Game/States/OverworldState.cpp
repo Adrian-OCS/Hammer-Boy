@@ -61,10 +61,6 @@ void OverworldState::render()
 void OverworldState::keyPressed(int key)
 {
     player->keyPressed(key);
-    if (key == 'p'){
-        setNextState("PauseState");
-        setFinished(true);
-	}
 }
 
 void OverworldState::keyReleased(int key)

@@ -226,11 +226,6 @@ void BattleState::renderOutcome()
 
 void BattleState::keyPressed(int key)
 {
-    player->keyPressed(key);
-    if (key == 'p'){
-            setNextState("PauseState");
-            setFinished(true);
-	}
     if (canInteract)
     {
         if (key == OF_KEY_LEFT || key == 'a')
