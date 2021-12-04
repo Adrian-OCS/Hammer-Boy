@@ -6,8 +6,7 @@
 #include "BattleState.h"
 #include "WinState.h"
 #include "EndGameState.h"
-//#include "LoadingState.h"
-#include "PauseState.h"
+#include "LoadingState.h"
 
 class ofApp : public ofBaseApp{
 	public:
@@ -31,12 +30,12 @@ class ofApp : public ofBaseApp{
 		Area *area1;
 		Area *area2;
 		Area *currentArea;
-		State *currentState;
+		State *currentState, *lastState;
 		TitleState *titleState;
 		OverworldState *overworldState;
 		BattleState *battleState;
 		WinState *winState;
 		EndGameState *endGameState;
 		Player *player;
-		PauseState *paused;
+		LoadingState *loading;
 };

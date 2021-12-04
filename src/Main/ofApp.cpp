@@ -13,8 +13,7 @@ void ofApp::setup()
 	battleState = new BattleState(player, currentArea);
 	winState = new WinState();
 	endGameState = new EndGameState();
-	//loadingState = new LoadingState();
-	paused = new PauseState();
+	loading = new LoadingState();
 	
 
 
@@ -61,9 +60,9 @@ void ofApp::update()
 	if (currentState != nullptr)
 	{
 		
-		if(!paused->getPause()){
-			currentState->tick();
-		}
+		
+		currentState->tick();
+		loading->tick();
 
 		if (currentState->hasFinished())
 		{
@@ -82,11 +81,13 @@ void ofApp::update()
 			else if (currentState->getNextState() == "Overworld")
 			{
 				currentState = overworldState;
+				loading->startLoading(currentState);
 			}
 			else if (currentState->getNextState() == "Battle")
 			{
 				battleState->startBattle(overworldState->getEnemy());
 				currentState = battleState;
+				loading->startLoading(currentState);
 			}
 			else if (currentState->getNextState() == "Win")
 			{
@@ -104,6 +105,7 @@ void ofApp::update()
 						overworldState->loadArea(currentArea);
 						battleState->setStage(currentArea->getStage());
 						currentState = winState;
+						loading->startLoading(currentState);
 					}
 				}
 				else
@@ -113,8 +115,11 @@ void ofApp::update()
 			}
 			else if (currentState->getNextState() == "End")
 				currentState = endGameState;
-			currentState->toggleMusic();
+			if(loading->getLoading() == false){
+				currentState->toggleMusic();
+			}
 			currentState->reset();
+
 		}
 	}
 }
@@ -124,7 +129,10 @@ void ofApp::draw()
 {
 	if (currentState != nullptr)
 	{
-		currentState->render();
+		if(loading->getLoading() == false){
+			currentState->render();
+		}
+		loading->render();
 	}
 }
 

@@ -21,7 +21,7 @@ void OverworldState::loadArea(Area *area)
 }
 
 void OverworldState::tick()
-{   
+{   if(isPaused == false){
         player->tickOverworld();
         for (unsigned int i = 0; i < area->getEnemies().size(); i++)
         {
@@ -37,6 +37,7 @@ void OverworldState::tick()
             }
         }
         camera->tick();
+    }
 }
 
 void OverworldState::render()
@@ -61,6 +62,16 @@ void OverworldState::render()
 void OverworldState::keyPressed(int key)
 {
     player->keyPressed(key);
+    if (key == 'p'){
+        if (isPaused == false){
+            music.setVolume(0);
+            isPaused = true;
+        }
+        else{
+            music.setVolume(0.25);
+            isPaused = false;
+        }
+	}
 }
 
 void OverworldState::keyReleased(int key)

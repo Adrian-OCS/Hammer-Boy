@@ -19,6 +19,7 @@ class State {
 		void windowResized(int w, int h){}
 		void gotMessage(ofMessage msg){}
 		void dragEvent(ofDragInfo dragInfo){}
+		bool isPaused = false;
 		bool hasFinished(){
 			return finished;
 		}

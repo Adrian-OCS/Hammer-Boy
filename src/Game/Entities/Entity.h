@@ -1,6 +1,6 @@
 #pragma once
 #include "ofMain.h"
-#include "PauseState.h"
+
 enum Direction {left, right, up, down};
 class Entity {
     protected:
@@ -35,4 +35,5 @@ class Entity {
         void setCurrentHealth(int currentHealth) { this->currentHealth = currentHealth; };
         int getDmg() { return baseDamage; };
         void setDmg(int baseDamage) { this->baseDamage = baseDamage; };
+        bool isPaused = false;
 };

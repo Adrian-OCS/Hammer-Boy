@@ -38,6 +38,7 @@ Enemy::Enemy(string id, int maxHealth, int baseDamage, string entityName, int ox
 
 void Enemy::tickOverworld()
 {   
+    if (isPaused == false){
         if (moveTimer == 60)
         {
             walking = true;
@@ -108,6 +109,7 @@ void Enemy::tickOverworld()
                 break;
             }
         }
+    }
 
 }
 
