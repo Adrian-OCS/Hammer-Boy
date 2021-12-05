@@ -1,9 +1,9 @@
 #pragma once
-
-#include "Entity.h" 
+ 
+#include "Fighter.h"
 #include "Animation.h"
-
-class Enemy : public Entity {
+ 
+class Enemy : public Fighter {
     private:
         Direction direction = Direction::down;
         int speed = 8;
@@ -19,9 +19,9 @@ class Enemy : public Entity {
         int moveTimer;
         bool dead = false;
         string entityName;
-        ofImage sprite; 
-
-    
+        ofImage sprite;
+ 
+   
     public:
         Enemy(string id, int maxHealth, int baseDamage, string entityName, int ox, int oy);
         ~Enemy();

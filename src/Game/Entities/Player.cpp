@@ -1,15 +1,16 @@
 #include "Player.h"
-
-Player::Player(int maxHealth, int baseDamage) : Entity(INIT_X, INIT_Y, 64, 64, 64, 164, 192, 192, maxHealth, baseDamage, "images/entities/player/downframes/player-ow-front1.png", "images/entities/player/fightingframes/player-f1.png")
+ 
+Player::Player(int maxHealth, int baseDamage) : Fighter(INIT_X, INIT_Y, 64, 64, "images/entities/player/fightingframes/player-f1.png", 64, 164, 192, 192, maxHealth, baseDamage, "images/entities/player/downframes/player-ow-front1.png")
+ 
 {
-
+ 
     vector<ofImage> downFrames = {};
     vector<ofImage> upFrames = {};
     vector<ofImage> leftFrames = {};
     vector<ofImage> rightFrames = {};
     vector<ofImage> fightingFrames = {};
     ofImage temp;
-
+ 
     for (int i = 1; i < 5; i++)
     {
         temp.load("images/entities/player/downframes/player-ow-front" + std::to_string(i == 3 ? 1 : i) + ".png");
@@ -21,23 +22,23 @@ Player::Player(int maxHealth, int baseDamage) : Entity(INIT_X, INIT_Y, 64, 64, 6
         temp.load("images/entities/player/rightframes/player-ow-right" + std::to_string(i == 3 ? 1 : i) + ".png");
         rightFrames.push_back(temp);
     }
-
+ 
     temp.load("images/entities/player/fightingframes/player-f1.png");
     fightingFrames.push_back(temp);
     temp.load("images/entities/player/fightingframes/player-f2.png");
     fightingFrames.push_back(temp);
-
+ 
     walkDown = new Animation(5, downFrames);
     walkUp = new Animation(5, upFrames);
     walkLeft = new Animation(5, leftFrames);
     walkRight = new Animation(5, rightFrames);
     fighting = new Animation(7, fightingFrames);
     pressedKeys = {};
-
+ 
     this->currentHealth = this->getMaxHealth();
-
+ 
 }
-
+ 
 void Player::tickOverworld()
 {
     if (!pressedKeys.empty())
@@ -55,7 +56,7 @@ void Player::tickOverworld()
             direction = Direction::right;
             if (this->ox + speed <= OXDIMENSION - CENTER_X)
                 this->ox += speed;
-
+ 
             walkRight->tick();
             overworldSprite = walkRight->getCurrentFrame();
             break;
@@ -65,7 +66,7 @@ void Player::tickOverworld()
                 this->oy -= speed;
             walkUp->tick();
             overworldSprite = walkUp->getCurrentFrame();
-
+ 
             break;
         case 's':
             direction = Direction::down;
@@ -76,7 +77,7 @@ void Player::tickOverworld()
             break;
         case 'h':
             this->currentHealth = this->getMaxHealth();
-            break;       
+            break;      
         }
     }
     else
@@ -98,13 +99,13 @@ void Player::tickOverworld()
         }
     }
 }
-
+ 
 void Player::tickFighting()
 {
     fightingSprite = fighting->getCurrentFrame();
     fighting->tick();
 }
-
+ 
 void Player::renderOverworld()
 {
     // uncomment this to see the coordinates of your player
@@ -112,7 +113,7 @@ void Player::renderOverworld()
     // ofDrawBitmapString("oy:" + to_string(oy), 100, 80);
     overworldSprite.draw(CENTER_X, CENTER_Y, ow, oh);
 }
-
+ 
 void Player::keyPressed(int key)
 {
         if (key == 'w' || key == 'a' || key == 's' || key == 'd' || key == 'h')
@@ -121,9 +122,9 @@ void Player::keyPressed(int key)
                 pressedKeys.push_back(key);
             }
         }
-    
+   
 }
-
+ 
 void Player::keyReleased(int key)
 {
     if (key == 'w' || key == 'a' || key == 's' || key == 'd' || key == 'h')
@@ -134,7 +135,7 @@ void Player::keyReleased(int key)
         }
     }
 }
-
+ 
 void Player::reset()
 {
     ox = INIT_X;
@@ -142,7 +143,7 @@ void Player::reset()
     fx = INIT_X;
     fy = INIT_Y;
 }
-
+ 
 Player::~Player() {
     delete walkUp;
     delete walkDown;

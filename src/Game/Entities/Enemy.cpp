@@ -1,6 +1,6 @@
 #include "Enemy.h"
-
-Enemy::Enemy(string id, int maxHealth, int baseDamage, string entityName, int ox, int oy) : Entity(ox, oy, 64, 64, 400, 164, 192, 192, maxHealth, baseDamage, "images/entities/enemy1/fightingframes/enemy1-f1.png", "images/entities/enemy1/downframes/enemy1-ow-down1.png")
+ 
+Enemy::Enemy(string id, int maxHealth, int baseDamage, string entityName, int ox, int oy) : Fighter(ox, oy, 64, 64, "images/entities/enemy1/downframes/enemy1-ow-down1.png", 400, 164, 192, 192, maxHealth, baseDamage, "images/entities/enemy1/fightingframes/enemy1-f1.png")
 {
     this->id = id;
     this->entityName = entityName;
@@ -11,7 +11,7 @@ Enemy::Enemy(string id, int maxHealth, int baseDamage, string entityName, int ox
     vector<ofImage> rightFrames = {};
     vector<ofImage> fightingFrames = {};
     ofImage temp;
-
+ 
     for (int i = 1; i < 5; i++)
     {
         temp.load("images/entities/" + entityName + "/downframes/" + entityName + "-ow-down" + std::to_string(i == 3 ? 1 : i) + ".png");
@@ -23,22 +23,21 @@ Enemy::Enemy(string id, int maxHealth, int baseDamage, string entityName, int ox
         temp.load("images/entities/" + entityName + "/rightframes/" + entityName + "-ow-right" + std::to_string(i == 3 ? 1 : i) + ".png");
         rightFrames.push_back(temp);
     }
-
+ 
     temp.load("images/entities/" + entityName + "/fightingframes/" + entityName + "-f1.png");
     fightingFrames.push_back(temp);
     temp.load("images/entities/" + entityName + "/fightingframes/" + entityName + "-f2.png");
     fightingFrames.push_back(temp);
-
+ 
     walkDown = new Animation(3, downFrames);
     walkUp = new Animation(3, upFrames);
     walkLeft = new Animation(3, leftFrames);
     walkRight = new Animation(3, rightFrames);
     fighting = new Animation(7, fightingFrames);
 }
-
+ 
 void Enemy::tickOverworld()
-{   
-    if (isPaused == false){
+{  
         if (moveTimer == 60)
         {
             walking = true;
@@ -64,7 +63,7 @@ void Enemy::tickOverworld()
         }
         moveTimer--;
         if (moveTimer == 0) moveTimer = 60;
-
+ 
         if (walking)
         {
             switch (direction)
@@ -109,10 +108,9 @@ void Enemy::tickOverworld()
                 break;
             }
         }
-    }
-
+ 
 }
-
+ 
 void Enemy::renderOverworld()
 {
     // uncomment these if you want the coordinates of the enemies in the current area
@@ -122,25 +120,25 @@ void Enemy::renderOverworld()
     // ofDrawBitmapString("oy:" + to_string(oy), 100 + 125 * ((stoi(id) % 10) - 1), 160);
     overworldSprite.draw(renderX, renderY, ow, oh);
 }
-
+ 
 void Enemy::tickFighting()
 {
     fightingSprite = fighting->getCurrentFrame();
     fighting->tick();
 }
-
+ 
 void Enemy::keyPressed(int key)
 {
 }
-
+ 
 void Enemy::keyReleased(int key)
 {
 }
-
+ 
 void Enemy::reset()
 {
 }
-
+ 
 Enemy::~Enemy()
 {
     delete walkUp;
@@ -149,3 +147,4 @@ Enemy::~Enemy()
     delete walkRight;
     delete fighting;
 }
+ 
