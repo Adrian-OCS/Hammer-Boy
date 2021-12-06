@@ -7,6 +7,7 @@ OverworldState::OverworldState(Player *player, Area *area)
     loadArea(area);
     music.setVolume(0.25);
     music.setLoop(true);
+
 }
 
 void OverworldState::loadArea(Area *area)
@@ -35,6 +36,7 @@ void OverworldState::tick()
                     setFinished(true);
                 }
             }
+
         }
         camera->tick();
     }
@@ -55,8 +57,23 @@ void OverworldState::render()
             area->getEnemies().at(i)->setRenderX(camera->getDimensionX() / 2 + playerDistanceX);
             area->getEnemies().at(i)->setRenderY(camera->getDimensionY() / 2 + playerDistanceY);
             area->getEnemies().at(i)->renderOverworld();
+
+            // int playerDistanceX = area->getFriend()->getOX() - camera->getPlayerX();
+            // int playerDistanceY = area->getFriend()->getOY() - camera->getPlayerY();
+            // area->getFriend()->setRenderX(camera->getDimensionX() / 2 + playerDistanceX);
+            // area->getFriend()->setRenderY(camera->getDimensionY() / 2 + playerDistanceY);
+            // friendEn->renderOverworld();
         }
     }
+    for (unsigned int i = 0; i < area->getStatic().size(); i++)
+    {
+        int playerDistanceX = area->getStatic().at(i)->getOX() - camera->getPlayerX();
+        int playerDistanceY = area->getStatic().at(i)->getOY() - camera->getPlayerY();
+        area->getStatic().at(i)->setRenderX(camera->getDimensionX() / 2 + playerDistanceX);
+        area->getStatic().at(i)->setRenderY(camera->getDimensionY() / 2 + playerDistanceY);
+        area->getStatic().at(i)->renderOverworld();
+    }
+
 }
 
 void OverworldState::keyPressed(int key)
@@ -72,6 +89,12 @@ void OverworldState::keyPressed(int key)
             isPaused = false;
         }
 	}
+    if (key == '-'){
+        music.setVolume(0);
+    }
+    if (key == '='){
+        music.setVolume(0.25);
+    }
 }
 
 void OverworldState::keyReleased(int key)

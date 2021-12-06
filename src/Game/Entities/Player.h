@@ -33,4 +33,7 @@ class Player : public Fighter {
         void keyPressed(int key);
         void keyReleased(int key);
         void reset();
+        bool StaticTouch();
+        bool StaticTouch2();
+        bool StaticTouch3();
 };

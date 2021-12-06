@@ -49,6 +49,15 @@ void Player::tickOverworld()
             direction = Direction::left;
             if (this->ox - speed >= CENTER_X)
                 this->ox -= speed;
+                if (!StaticTouch()) {
+                    this->oy += speed;
+                }
+                if (!StaticTouch2()) {
+                    this->oy += speed;
+                }
+                if (!StaticTouch3()) {
+                    this->oy += speed;
+                }
             walkLeft->tick();
             overworldSprite = walkLeft->getCurrentFrame();
             break;
@@ -56,6 +65,15 @@ void Player::tickOverworld()
             direction = Direction::right;
             if (this->ox + speed <= OXDIMENSION - CENTER_X)
                 this->ox += speed;
+                if (!StaticTouch()) {
+                    this->oy -= speed;
+                }
+                if (!StaticTouch2()) {
+                    this->oy -= speed;
+                }
+                if (!StaticTouch3()) {
+                    this->oy -= speed;
+                }
  
             walkRight->tick();
             overworldSprite = walkRight->getCurrentFrame();
@@ -64,6 +82,15 @@ void Player::tickOverworld()
             direction = Direction::up;
             if (this->oy - speed >= CENTER_Y)
                 this->oy -= speed;
+                if (!StaticTouch()) {
+                    this->oy += speed;
+                }
+                if (!StaticTouch2()) {
+                    this->oy += speed;
+                }
+                if (!StaticTouch3()) {
+                    this->oy += speed;
+                }
             walkUp->tick();
             overworldSprite = walkUp->getCurrentFrame();
  
@@ -72,6 +99,15 @@ void Player::tickOverworld()
             direction = Direction::down;
             if (this->oy + speed <= OYDIMENSION - CENTER_Y)
                 this->oy += speed;
+                if (!StaticTouch()) {
+                    this->oy -= speed;
+                }
+                if (!StaticTouch2()) {
+                    this->oy -= speed;
+                }
+                if (!StaticTouch3()) {
+                    this->oy -= speed;
+                }
             walkDown->tick();
             overworldSprite = walkDown->getCurrentFrame();
             break;
@@ -149,4 +185,70 @@ Player::~Player() {
     delete walkDown;
     delete walkLeft;
     delete walkRight;
+}
+
+bool Player::StaticTouch() {
+    int a = 0;
+    for(int x = 1840; x < 2088; x++) {
+        if (this->ox == x) {
+            a += 1;
+            break;
+        }
+    }
+    for (int y = 2040; y < 2184; y++) {
+        if (this->oy == y) {
+            a += 1;
+            break;
+        }
+    }
+    if (a == 2) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+bool Player::StaticTouch2() {
+    int b = 0;
+    for(int x = 1640; x < 1888; x++) {
+        if (this->ox == x) {
+            b += 1;
+            break;
+        }
+    }
+    for (int y = 1840; y < 1984; y++) {
+        if (this->oy == y) {
+            b += 1;
+            break;
+        }
+    }
+    if (b == 2) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+bool Player::StaticTouch3() {
+    int c = 0;
+    for(int x = 1360; x < 1608; x++) {
+        if (this->ox == x) {
+            c += 1;
+            break;
+        }
+    }
+    for (int y = 1720; y < 1864; y++) {
+        if (this->oy == y) {
+            c += 1;
+            break;
+        }
+    }
+    if (c == 2) {
+        return false;
+    }
+    else {
+        return true;
+    }
 }
